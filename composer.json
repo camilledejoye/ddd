@@ -1,5 +1,5 @@
 {
-    "name": "ely/ddd",
+    "name": "elythyr/ddd",
     "description": "Generic package for DDD programming",
     "require": {
         "ramsey/uuid": "^3.6",
