@@ -1,0 +1,14 @@
+{
+    "name": "ely/ddd",
+    "description": "Generic package for DDD programming",
+    "require": {
+        "ramsey/uuid": "^3.6",
+        "ramsey/uuid-doctrine": "^1.3"
+    },
+    "authors": [
+        {
+            "name": "elythyr",
+            "email": "camilledejoye@gmail.com"
+        }
+    ]
+}
