@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\ValueObject;
+namespace ddd\Model\ValueObject;
 
 /**
  * A trait for a standard UUID identity.

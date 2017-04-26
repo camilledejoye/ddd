@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\ValueObject;
+namespace ddd\Model\ValueObject;
 
 /**
  * Represents an entity's identity.

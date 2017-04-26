@@ -1,10 +1,10 @@
 <?php
 
-namespace Model\ValueObject;
+namespace ddd\Model\ValueObject;
 
 use Ramsey\Uuid\Uuid;
 
-use Model\ValueObject\EntityId;
+use ddd\Model\ValueObject\EntityId;
 
 /**
  * Represents an identity of an entity as a UUID.
