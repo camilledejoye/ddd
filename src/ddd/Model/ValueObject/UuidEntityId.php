@@ -20,7 +20,9 @@ abstract class UuidEntityId implements EntityId
     private $id;
 
     /**
-     * {@inheritdoc}
+     * Initializes an identity.
+     *
+     * @param self $id (optional) The already existing identity of the entity.
      */
     public function __construct(self $id = null)
     {
@@ -44,3 +46,4 @@ abstract class UuidEntityId implements EntityId
     }
 
 }
+
