@@ -41,5 +41,11 @@ class UuidEntityIdTest extends TestCase
         $this->assertNotEmpty((string) $this->id);
     }
 
+    public function test__clone()
+    {
+        $newId = clone $this->id;
+        $this->assertNotSame((string) $this->id, (string) $newId);
+    }
+
 }
 

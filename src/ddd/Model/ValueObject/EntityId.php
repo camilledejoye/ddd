@@ -24,5 +24,7 @@ interface EntityId
      */
     public function __toString(): string;
 
+    public function __clone();
+
 }
 

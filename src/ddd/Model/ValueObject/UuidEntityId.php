@@ -45,5 +45,10 @@ abstract class UuidEntityId implements EntityId
         return $this->id;
     }
 
+    public function __clone()
+    {
+        $this->id = new static();
+    }
+
 }
 
