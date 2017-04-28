@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\ddd\Model\ValueObject;
+namespace tests\ddd\Model\ValueObject;
 
 use ddd\Model\ValueObject\UuidEntityId;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\ddd\Model\ValueObject;
+namespace tests\ddd\Model\ValueObject;
 
 use PHPUnit\Framework\TestCase;
 
 use ddd\Model\ValueObject\UuidEntityId;
 
-use Tests\ddd\Model\ValueObject\TestId;
+use tests\ddd\Model\ValueObject\TestId;
 
 class UuidEntityIdTest extends TestCase
 {
@@ -22,11 +22,20 @@ class UuidEntityIdTest extends TestCase
     }
 
     /**
+     * @covers ddd\Model\ValueObject\UuidEntityId::__clone
+     */
+    public function test__clone()
+    {
+        $newId = clone $this->id;
+        $this->assertNotSame((string) $this->id, (string) $newId);
+    }
+
+    /**
      * @covers ddd\Model\ValueObject\UuidEntityId::getId()
      */
     public function testGetId()
     {
-        $sameId = new TestId($this->id);
+        $sameId  = new TestId($this->id);
         $otherId = new TestId();
 
         $this->assertEquals($this->id->getId(), $sameId->getId());
@@ -41,10 +50,16 @@ class UuidEntityIdTest extends TestCase
         $this->assertNotEmpty((string) $this->id);
     }
 
-    public function test__clone()
+    /**
+     * @covers ddd\Model\ValueObject\UuidEntityId::isEqualTo
+     */
+    public function testIsEqualTo()
     {
-        $newId = clone $this->id;
-        $this->assertNotSame((string) $this->id, (string) $newId);
+        $sameId  = new TestId($this->id);
+        $otherId = new TestId();
+
+        $this->assertTrue($this->id->isEqualTo($sameId));
+        $this->assertFalse($this->id->isEqualTo($otherId));
     }
 
 }

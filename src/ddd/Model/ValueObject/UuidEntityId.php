@@ -32,6 +32,26 @@ abstract class UuidEntityId implements EntityId
     /**
      * {@inheritdoc}
      */
+    public function __clone()
+    {
+        $this->id = new static();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isEqualTo($value): bool
+    {
+        if (!$value instanceof static) {
+            return false;
+        }
+
+        return $this->getId() === $value->getId();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getId(): string
     {
         return $this->id;
@@ -43,14 +63,6 @@ abstract class UuidEntityId implements EntityId
     public function __toString(): string
     {
         return $this->id;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __clone()
-    {
-        $this->id = new static();
     }
 
 }
