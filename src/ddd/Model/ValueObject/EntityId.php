@@ -2,14 +2,14 @@
 
 namespace ddd\Model\ValueObject;
 
-use ddd\Utility\ComparesTo;
+use ddd\Utility\Equals;
 
 /**
  * Represents an entity's identity.
  *
  * @author ely
  */
-interface EntityId extends ComparesTo
+interface EntityId extends Equals
 {
 
     /**

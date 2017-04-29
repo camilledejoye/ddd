@@ -7,7 +7,7 @@ namespace ddd\Utility;
  *
  * @author ely
  */
-interface ComparesTo
+interface Equals
 {
 
     /**
@@ -16,7 +16,7 @@ interface ComparesTo
      * @param mixed $value The value to compare with.
      * @return boolean true if the value and the object are equal, false otherwise.
      */
-    public function isEqualTo($value): bool;
+    public function equals($value): bool;
 
 }
 

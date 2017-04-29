@@ -40,7 +40,7 @@ abstract class UuidEntityId implements EntityId
     /**
      * {@inheritdoc}
      */
-    public function isEqualTo($value): bool
+    public function equals($value): bool
     {
         if (!$value instanceof static) {
             return false;

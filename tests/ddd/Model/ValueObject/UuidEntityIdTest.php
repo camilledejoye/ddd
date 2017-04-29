@@ -51,15 +51,15 @@ class UuidEntityIdTest extends TestCase
     }
 
     /**
-     * @covers ddd\Model\ValueObject\UuidEntityId::isEqualTo
+     * @covers ddd\Model\ValueObject\UuidEntityId::equals
      */
     public function testIsEqualTo()
     {
         $sameId  = new TestId($this->id);
         $otherId = new TestId();
 
-        $this->assertTrue($this->id->isEqualTo($sameId));
-        $this->assertFalse($this->id->isEqualTo($otherId));
+        $this->assertTrue($this->id->equals($sameId));
+        $this->assertFalse($this->id->equals($otherId));
     }
 
 }
