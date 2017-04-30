@@ -44,7 +44,7 @@ class Identity implements Equals
      */
     public function equals($value): bool
     {
-        if (!$value instanceof static) {
+        if (!($value instanceof static)) {
             return false;
         }
 
