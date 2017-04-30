@@ -11,7 +11,7 @@ use ddd\Model\ValueObject\GeneratedIdentity;
  *
  * @author ely
  */
-final class UuidIdentity extends GeneratedIdentity
+class UuidIdentity extends GeneratedIdentity
 {
 
     /**
