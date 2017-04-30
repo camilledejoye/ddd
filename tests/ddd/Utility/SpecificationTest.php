@@ -98,27 +98,27 @@ class SpecificationTest extends TestCase
         
         $this->assertTrue(
             $true
-                ->andSpec($true)
+                ->and_($true)
                 ->isSatisfiedBy(new \stdClass())
         );
         
         $this->assertTrue(
             $false
-                ->orSpec($true)
+                ->or_($true)
                 ->isSatisfiedBy(new \stdClass())
         );
         
         $this->assertTrue(
             $false
-                ->notSpec()
+                ->not_()
                 ->isSatisfiedBy(new \stdClass())
         );
         
         $this->assertTrue(
-            $false->notSpec()
-                ->andSpec(
-                    $true->andSpec(
-                        $false->orSpec($true)
+            $false->not_()
+                ->and_(
+                    $true->and_(
+                        $false->or_($true)
                     )
                 )
                 ->isSatisfiedBy(new \stdClass())

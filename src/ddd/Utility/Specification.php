@@ -21,7 +21,7 @@ interface Specification
      * 
      * @return \ddd\Utility\AndSpecification The new specification.
      */
-    public function andSpec(Specification $specification): AndSpecification;
+    public function and_(Specification $specification): AndSpecification;
     
     /**
      * Adds a "or" clause to a specification.
@@ -30,7 +30,7 @@ interface Specification
      * 
      * @return \ddd\Utility\OrSpecification The new specification.
      */
-    public function orSpec(Specification $specification): OrSpecification;
+    public function or_(Specification $specification): OrSpecification;
     
     /**
      * Adds a "not" clause to a specification.
@@ -39,7 +39,7 @@ interface Specification
      * 
      * @return \ddd\Utility\NotSpecification The new specification.
      */
-    public function notSpec(): NotSpecification;
+    public function not_(): NotSpecification;
     
     /**
      * Verifies if a specification is satisfied by an object.
