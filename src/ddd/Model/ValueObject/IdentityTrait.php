@@ -2,7 +2,12 @@
 
 namespace ddd\Model\ValueObject;
 
-trait EntityIdTrait
+/**
+ * Used to enforce type hinting.
+ * 
+ * @author ely
+ */
+trait IdentityTrait
 {
 
     /**

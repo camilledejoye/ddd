@@ -4,25 +4,23 @@ namespace tests\ddd\Model\ValueObject;
 
 use PHPUnit\Framework\TestCase;
 
-use ddd\Model\ValueObject\UuidEntityId;
+use ddd\Model\ValueObject\UuidIdentity;
 
-use tests\ddd\Model\ValueObject\TestId;
-
-class UuidEntityIdTest extends TestCase
+class UuidIdentityTest extends TestCase
 {
 
     /**
-     * @var TestId
+     * @var UuidIdentity
      */
     protected $id;
 
     protected function setUp()
     {
-        $this->id = new TestId();
+        $this->id = new UuidIdentity();
     }
 
     /**
-     * @covers ddd\Model\ValueObject\UuidEntityId::__clone
+     * @covers ddd\Model\ValueObject\UuidIdentity::__clone
      */
     public function test__clone()
     {
@@ -31,19 +29,19 @@ class UuidEntityIdTest extends TestCase
     }
 
     /**
-     * @covers ddd\Model\ValueObject\UuidEntityId::getId()
+     * @covers ddd\Model\ValueObject\UuidIdentity::getId()
      */
     public function testGetId()
     {
-        $sameId  = new TestId($this->id);
-        $otherId = new TestId();
+        $sameId  = new UuidIdentity($this->id);
+        $otherId = new UuidIdentity();
 
         $this->assertEquals($this->id->getId(), $sameId->getId());
         $this->assertNotEquals($this->id->getId(), $otherId->getId());
     }
 
     /**
-     * @covers ddd\Model\ValueObject\UuidEntityId::__toString()
+     * @covers ddd\Model\ValueObject\UuidIdentity::__toString()
      */
     public function test__toString()
     {
@@ -51,12 +49,12 @@ class UuidEntityIdTest extends TestCase
     }
 
     /**
-     * @covers ddd\Model\ValueObject\UuidEntityId::equals
+     * @covers ddd\Model\ValueObject\UuidIdentity::equals
      */
     public function testIsEqualTo()
     {
-        $sameId  = new TestId($this->id);
-        $otherId = new TestId();
+        $sameId  = new UuidIdentity($this->id);
+        $otherId = new UuidIdentity();
 
         $this->assertTrue($this->id->equals($sameId));
         $this->assertFalse($this->id->equals($otherId));
