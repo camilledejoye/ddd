@@ -1,15 +1,15 @@
 <?php
 
-namespace ddd\Model\ValueObject;
+namespace ddd\Model\Identity;
 
 use Assert\Assertion;
 
-use ddd\Model\ValueObject\Identity;
+use ddd\Model\Identity\Identity;
 
 /**
  * Represents an identity of an entity generate with a Generator.
  *
- * @see ddd\Utility\Generator
+ * @see ddd\Specification\Generator
  * 
  * @author ely
  */

@@ -1,8 +1,8 @@
 <?php
 
-namespace tests\ddd\Utility;
+namespace tests\ddd\Specification;
 
-use ddd\Utility\AbstractSpecification;
+use ddd\Specification\AbstractSpecification;
 
 /**
  * Description of SpecificationMock

@@ -1,10 +1,10 @@
 <?php
 
-namespace tests\ddd\Model\ValueObject;
+namespace tests\ddd\Model\Identity;
 
 use PHPUnit\Framework\TestCase;
 
-use ddd\Model\ValueObject\Identity;
+use ddd\Model\Identity\Identity;
 
 class IdentityTest extends TestCase
 {

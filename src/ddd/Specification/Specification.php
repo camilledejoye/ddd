@@ -1,10 +1,10 @@
 <?php
 
-namespace ddd\Utility;
+namespace ddd\Specification;
 
-use ddd\Utility\AndSpecification;
-use ddd\Utility\OrSpecification;
-use ddd\Utility\NotSpecification;
+use ddd\Specification\AndSpecification;
+use ddd\Specification\OrSpecification;
+use ddd\Specification\NotSpecification;
 
 /**
  * Represents any kind of specification.
@@ -17,27 +17,27 @@ interface Specification
     /**
      * Adds a "and" clause to a specification.
      * 
-     * @param \ddd\Utility\Specification $specification The specification to add.
+     * @param \ddd\Specification\Specification $specification The specification to add.
      * 
-     * @return \ddd\Utility\AndSpecification The new specification.
+     * @return \ddd\Specification\AndSpecification The new specification.
      */
     public function and_(Specification $specification): AndSpecification;
     
     /**
      * Adds a "or" clause to a specification.
      * 
-     * @param \ddd\Utility\Specification $specification The specification to add.
+     * @param \ddd\Specification\Specification $specification The specification to add.
      * 
-     * @return \ddd\Utility\OrSpecification The new specification.
+     * @return \ddd\Specification\OrSpecification The new specification.
      */
     public function or_(Specification $specification): OrSpecification;
     
     /**
      * Adds a "not" clause to a specification.
      * 
-     * @param \ddd\Utility\Specification $specification The specification to add.
+     * @param \ddd\Specification\Specification $specification The specification to add.
      * 
-     * @return \ddd\Utility\NotSpecification The new specification.
+     * @return \ddd\Specification\NotSpecification The new specification.
      */
     public function not_(): NotSpecification;
     

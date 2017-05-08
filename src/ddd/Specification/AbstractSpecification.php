@@ -1,10 +1,10 @@
 <?php
 
-namespace ddd\Utility;
+namespace ddd\Specification;
 
-use ddd\Utility\AndSpecification;
-use ddd\Utility\OrSpecification;
-use ddd\Utility\NotSpecification;
+use ddd\Specification\AndSpecification;
+use ddd\Specification\OrSpecification;
+use ddd\Specification\NotSpecification;
 
 /**
  * A base for all Specification objects.

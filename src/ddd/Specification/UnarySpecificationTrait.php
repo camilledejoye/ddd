@@ -1,8 +1,8 @@
 <?php
 
-namespace ddd\Utility;
+namespace ddd\Specification;
 
-use ddd\Utility\Specification;
+use ddd\Specification\Specification;
 
 /**
  * A trait for all specification with one operand.
@@ -13,7 +13,7 @@ trait UnarySpecificationTrait
 {
 
     /**
-     * @var \ddd\Utility\Specification The left operand.
+     * @var \ddd\Specification\Specification The left operand.
      */
     private $specification;
     

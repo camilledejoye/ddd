@@ -1,18 +1,18 @@
 <?php
 
-namespace ddd\Model\ValueObject;
+namespace ddd\Model\Identity;
 
 use Ramsey\Uuid\Uuid;
 use Assert\Assertion;
 
-use ddd\Model\ValueObject\GeneratedIdentity;
+use ddd\Model\Identity\GeneratedIdentity;
 
 /**
  * Represents an identity as a UUID.
  *
  * @author ely
  */
-final class UuidIdentity extends GeneratedIdentity
+class UuidIdentity extends GeneratedIdentity
 {
 
     /**

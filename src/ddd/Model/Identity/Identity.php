@@ -1,6 +1,6 @@
 <?php
 
-namespace ddd\Model\ValueObject;
+namespace ddd\Model\Identity;
 
 use Assert\Assertion;
 use Assert\LazyAssertionException;

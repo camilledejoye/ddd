@@ -1,12 +1,12 @@
 <?php
 
-namespace tests\ddd\Model\ValueObject;
+namespace tests\ddd\Model\Identity;
 
 use PHPUnit\Framework\TestCase;
 
 use Ramsey\Uuid\Uuid;
 
-use ddd\Model\ValueObject\UuidIdentity;
+use ddd\Model\Identity\UuidIdentity;
 
 class UuidIdentityTest extends TestCase
 {
