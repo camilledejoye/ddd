@@ -15,9 +15,9 @@ interface Entity extends Equals
     /**
      * Gets the identity of an entity.
      *
-     * @return mixed The identity of the entity.
+     * @return \ddd\Model\ValueObject\Identity The identity of the entity.
      */
-    public function getId();
+    public function id();
 
     /**
      * Clones an entity.

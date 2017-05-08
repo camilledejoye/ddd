@@ -2,8 +2,9 @@
 
 namespace ddd\Model\ValueObject;
 
+use Assert\Assertion;
+
 use ddd\Model\ValueObject\Identity;
-use ddd\Utility\Generator;
 
 /**
  * Represents an identity of an entity generate with a Generator.
@@ -16,28 +17,44 @@ class GeneratedIdentity extends Identity
 {
 
     /**
-     * @var Generator A generator for the identity.
+     * @var callable A generator for the identity.
      */
     private $generator;
-
+    
     /**
-     * Initializes an identity.
+     * Generates a new identity with a generator.
      *
      * @param callable $generator The generator.
-     * @param self $id (optional) The already existing identity of the entity.
+     * 
+     * @return static The generated identity.
      */
-    public function __construct(callable $generator, self $id = null)
+    public static function generateWith(callable $generator)
     {
-        if (!is_callable($generator)) {
-            throw new \InvalidArgumentException(sprintf(
-                "A generator must be an instance of ddd\Utility\Generator or a valid callable.\nGenerator provided : %s",
-                print_r($generator, true)
-            ));
-        }
+//        Je rajoute une méthode, classe enfant c'est logique
+//        Mais UuidIdentity ne dois pas être appelée avec generateWith
+//        Ou est-ce acceptable ???
         
-        $this->generator = $generator;
+        $id = new static();
+        $id->setGenerator($generator);
         
-        parent::__construct($id ?? $this->generate());
+        $id->id = $id->invokeGenerator();
+        
+        return $id;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public static function copy($idToCopy)
+    {
+        Assertion::isInstanceOf($idToCopy, static::class);
+        
+        $id = new static();
+        $id->setGenerator($idToCopy->generator);
+        
+        $id->id = $idToCopy->id;
+        
+        return $id;
     }
 
     /**
@@ -45,17 +62,39 @@ class GeneratedIdentity extends Identity
      */
     public function __clone()
     {
-        $this->id = $this->generate();
+        $this->id = $this->invokeGenerator();
     }
     
     /**
+     * {@inheritdoc}
+     */
+    protected function __construct()
+    {
+        parent::__construct();
+        
+        $this->generator = null;
+    }
+    
+    /**
+     * Sets a generator for an identity.
+     * 
+     * @param callable $generator The generator.
+     */
+    protected function setGenerator(callable $generator)
+    {
+        $this->generator = $generator;
+    }
+
+    /**
      * Generates an identity.
      * 
-     * @return mixed The generated identity.
+     * @return mixed The generated identity value.
      */
-    private function generate()
+    protected function invokeGenerator()
     {
-        return call_user_func($this->generator);
+        return null === $this->generator
+            ? null
+            : call_user_func($this->generator);
     }
 
 }

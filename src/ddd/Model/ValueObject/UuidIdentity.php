@@ -3,6 +3,7 @@
 namespace ddd\Model\ValueObject;
 
 use Ramsey\Uuid\Uuid;
+use Assert\Assertion;
 
 use ddd\Model\ValueObject\GeneratedIdentity;
 
@@ -11,21 +12,36 @@ use ddd\Model\ValueObject\GeneratedIdentity;
  *
  * @author ely
  */
-class UuidIdentity extends GeneratedIdentity
+final class UuidIdentity extends GeneratedIdentity
 {
 
     /**
-     * Initializes an identity.
+     * Generates a new identity.
      *
-     * @param self $id (optional) The already existing identity of the entity.
+     * @return static The generated identity.
      */
-    public function __construct(self $id = null)
+    public static function generate()
     {
         $generator = function() {
             return Uuid::uuid4()->toString();
         };
 
-        parent::__construct($generator, $id);
+        return parent::generateWith($generator);
+    }
+    
+    /**
+     * Creates a new identity from a string.
+     * 
+     * @param string $value The desired value for the identity, must be a valid UUID.
+     * 
+     * @return self The new identity.
+     */
+    public static function from($value)
+    {
+        Assertion::string($value);
+        Assertion::uuid($value);
+        
+        return parent::from((string) $value);
     }
 
 }

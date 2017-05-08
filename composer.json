@@ -3,7 +3,8 @@
     "description": "Generic package for DDD programming",
     "require": {
         "ramsey/uuid": "^3.6",
-        "ramsey/uuid-doctrine": "^1.3"
+        "ramsey/uuid-doctrine": "^1.3",
+        "beberlei/assert": "^2.7"
     },
     "autoload": {
         "psr-4": {

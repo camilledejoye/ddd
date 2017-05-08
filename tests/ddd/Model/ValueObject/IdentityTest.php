@@ -8,79 +8,76 @@ use ddd\Model\ValueObject\Identity;
 
 class IdentityTest extends TestCase
 {
-
+    
     /**
-     * @var Identity
+     * @test
+     * 
+     * @param int|string $value The value for the identity
+     * 
+     * @dataProvider provideValidIdentityValues
      */
-    protected $id;
-
-    /**
-     * @covers ddd\Model\ValueObject\Identity::getId()
-     */
-    public function test__construct()
+    public function itCreatesAnIdentityFromAValue($value)
     {
-        $id      = new Identity(1);
-        $sameId  = new Identity($id);
-        $otherId = new Identity();
+        $id = Identity::from($value);
         
-        $this->assertEquals(
-            1,
-            $id->getId()
-        );
-        
-        $this->assertEquals(
-            $id->getId(),
-            $sameId->getId()
-        );
-        
-        $this->assertEquals(
-            null,
-            $otherId->getId()
-        );
+        $this->assertInstanceOf(Identity::class, $id);
+        $this->assertEquals($value, $id->id());
     }
-
-    /**
-     * @covers ddd\Model\ValueObject\Identity::__clone
-     * @depends test__construct
-     */
-    public function test__clone()
+    
+    public function provideValidIdentityValues()
     {
-        $id       = new Identity(1);
+        return [
+            [1],
+            ['string'],
+        ];
+    }
+    
+    /**
+     * @test
+     * 
+     * @param mixed $value An invalid value.
+     * 
+     * @dataProvider provideInvalidIdentityValues
+     */
+    public function itFailsCreatingAnIdentityFromAValue($value)
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        
+        Identity::from($value);
+    }
+    
+    public function provideInvalidIdentityValues()
+    {
+        // Doesn't test everything (like ressources)
+        return [
+            [1.1],
+            [array()],
+            [array(1)],
+            [true],
+            [new \stdClass()],
+        ];
+    }
+    
+    /**
+     * @test
+     */
+    public function itCopiesAnIdentity()
+    {
+        $id       = Identity::from(1);
+        $copiedId = Identity::copy($id);
+
+        $this->assertTrue($id->equals($copiedId));
+    }
+    
+    /**
+     * @test
+     */
+    public function itClonesAnIdentity()
+    {
+        $id       = Identity::from(1);
         $clonedId = clone $id;
-        
-        $this->assertEquals(
-            null,
-            $clonedId->getId()
-        );
-    }
 
-    /**
-     * @covers ddd\Model\ValueObject\Identity::__toString()
-     * @depends test__construct
-     */
-    public function test__toString()
-    {
-        $id = new Identity(1);
-
-        $this->assertEquals(
-            '1',
-            (string) $id
-        );
-    }
-
-    /**
-     * @covers ddd\Model\ValueObject\Identity::equals
-     * @depends test__construct
-     */
-    public function testIsEqualTo()
-    {
-        $id      = new Identity(1);
-        $sameId  = new Identity($id);
-        $otherId = new Identity();
-
-        $this->assertTrue($id->equals($sameId));
-        
-        $this->assertFalse($id->equals($otherId));
+        $this->assertFalse($id->equals($clonedId));
     }
 
 }

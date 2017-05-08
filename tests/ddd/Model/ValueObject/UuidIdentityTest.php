@@ -4,60 +4,111 @@ namespace tests\ddd\Model\ValueObject;
 
 use PHPUnit\Framework\TestCase;
 
+use Ramsey\Uuid\Uuid;
+
 use ddd\Model\ValueObject\UuidIdentity;
 
 class UuidIdentityTest extends TestCase
 {
-
+    
     /**
-     * @var UuidIdentity
+     * @test
      */
-    protected $id;
-
-    protected function setUp()
+    public function itGeneratesIdentity()
     {
-        $this->id = new UuidIdentity();
+        $id = UuidIdentity::generate();
+        
+        $this->assertValidIdentity($id);
     }
-
+    
     /**
-     * @covers ddd\Model\ValueObject\UuidIdentity::__clone
+     * @test
      */
-    public function test__clone()
+    public function itGeneratesDifferentIdentities()
     {
-        $newId = clone $this->id;
-        $this->assertNotSame((string) $this->id, (string) $newId);
+        $id      = UuidIdentity::generate();
+        $otherId = UuidIdentity::generate();
+
+        $this->assertFalse($id->equals($otherId));
     }
-
+    
     /**
-     * @covers ddd\Model\ValueObject\UuidIdentity::getId()
+     * @test
      */
-    public function testGetId()
+    public function itCreatesAnIdentityFromAValue()
     {
-        $sameId  = new UuidIdentity($this->id);
-        $otherId = new UuidIdentity();
+        $uuid = Uuid::uuid4()->toString();
+        $id   = UuidIdentity::from($uuid);
 
-        $this->assertEquals($this->id->getId(), $sameId->getId());
-        $this->assertNotEquals($this->id->getId(), $otherId->getId());
+        $this->assertValidIdentity($id);
     }
-
+    
     /**
-     * @covers ddd\Model\ValueObject\UuidIdentity::__toString()
+     * @test
+     * 
+     * @param mixed $value An invalid value.
+     * 
+     * @dataProvider provideInvalidIdentityValues
      */
-    public function test__toString()
+    public function itFailsCreatingAnIdentityFromAValue($value)
     {
-        $this->assertNotEmpty((string) $this->id);
+        $this->expectException(\InvalidArgumentException::class);
+        
+        UuidIdentity::from($value);
     }
-
-    /**
-     * @covers ddd\Model\ValueObject\UuidIdentity::equals
-     */
-    public function testIsEqualTo()
+    
+    public function provideInvalidIdentityValues()
     {
-        $sameId  = new UuidIdentity($this->id);
-        $otherId = new UuidIdentity();
+        // Doesn't test everything (like ressources)
+        return [
+            [1.1],
+            [array()],
+            [array(1)],
+            [true],
+            [new \stdClass()],
+            [1],
+            ['string'],
+        ];
+    }
+    
+    /**
+     * @test
+     */
+    public function itCopiesAnIdentity()
+    {
+        $id       = UuidIdentity::generate();
+        $copiedId = UuidIdentity::copy($id);
+        
+        $this->assertTrue($id->equals($copiedId));
+    }
+    
+    /**
+     * @test
+     */
+    public function itClonesAnIdentity()
+    {
+        $id       = UuidIdentity::generate();
+        $clonedId = clone $id;
+        
+        $this->assertFalse($id->equals($clonedId));
+    }
+    
+    private function assertValidIdentity(UuidIdentity $id): bool
+    {
+        $assertInstanceOf = $this->assertInstanceOf(UuidIdentity::class, $id);
+        $assertUuid       = $this->assertUuid($id->id());
 
-        $this->assertTrue($this->id->equals($sameId));
-        $this->assertFalse($this->id->equals($otherId));
+        return $assertInstanceOf && $assertUuid;
+    }
+    
+    /**
+     * Taked from beberlei/assert
+     */
+    private function assertUuid($value): bool
+    {
+        $uuid = \str_replace(array('urn:', 'uuid:', '{', '}'), '', $value);
+
+        return \preg_match('/^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$/', $uuid);
     }
 
 }
