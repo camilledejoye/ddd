@@ -109,8 +109,8 @@ class Identity implements Equals
     {
         try {
             \Assert\Assert::lazy()->tryAll()
-                ->that($value, 'value id')->integer()
-                ->that($value, 'value id')->string()
+                ->that($value, 'value id')->nullOr()->integer()
+                ->that($value, 'value id')->nullOr()->string()
                 ->verifyNow();
         } catch(LazyAssertionException $exception) {
             if (2 === count($exception->getErrorExceptions())) {

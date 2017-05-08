@@ -29,6 +29,7 @@ class IdentityTest extends TestCase
         return [
             [1],
             ['string'],
+            [null],
         ];
     }
     
