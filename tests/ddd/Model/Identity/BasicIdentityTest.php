@@ -1,13 +1,24 @@
 <?php
 
-namespace tests\ddd\Model\Identity;
+namespace ddd\Model\Identity;
 
 use PHPUnit\Framework\TestCase;
 
-use ddd\Model\Identity\Identity;
+use ddd\Model\Identity\BasicIdentity;
 
-class IdentityTest extends TestCase
+class BasicIdentityTest extends TestCase
 {
+    
+    /**
+     * @test
+     */
+    public function itGeneratesANullIdentity()
+    {
+        $id = BasicIdentity::generate();
+        
+        $this->assertInstanceOf(BasicIdentity::class, $id);
+        $this->assertNull($id->value());
+    }
     
     /**
      * @test
@@ -18,10 +29,10 @@ class IdentityTest extends TestCase
      */
     public function itCreatesAnIdentityFromAValue($value)
     {
-        $id = Identity::from($value);
+        $id = BasicIdentity::from($value);
         
-        $this->assertInstanceOf(Identity::class, $id);
-        $this->assertEquals($value, $id->id());
+        $this->assertInstanceOf(BasicIdentity::class, $id);
+        $this->assertEquals($value, $id->value());
     }
     
     public function provideValidIdentityValues()
@@ -44,7 +55,7 @@ class IdentityTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         
-        Identity::from($value);
+        BasicIdentity::from($value);
     }
     
     public function provideInvalidIdentityValues()
@@ -56,6 +67,7 @@ class IdentityTest extends TestCase
             [array(1)],
             [true],
             [new \stdClass()],
+            [''],
         ];
     }
     
@@ -64,8 +76,8 @@ class IdentityTest extends TestCase
      */
     public function itCopiesAnIdentity()
     {
-        $id       = Identity::from(1);
-        $copiedId = Identity::copy($id);
+        $id       = BasicIdentity::from(1);
+        $copiedId = BasicIdentity::copy($id);
 
         $this->assertTrue($id->equals($copiedId));
     }
@@ -75,7 +87,7 @@ class IdentityTest extends TestCase
      */
     public function itClonesAnIdentity()
     {
-        $id       = Identity::from(1);
+        $id       = BasicIdentity::from(1);
         $clonedId = clone $id;
 
         $this->assertFalse($id->equals($clonedId));

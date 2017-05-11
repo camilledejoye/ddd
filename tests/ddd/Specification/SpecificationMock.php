@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\ddd\Specification;
+namespace ddd\Specification;
 
 use ddd\Specification\AbstractSpecification;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\ddd\Model\Identity;
+namespace ddd\Model\Identity;
 
 use PHPUnit\Framework\TestCase;
 
@@ -34,13 +34,24 @@ class UuidIdentityTest extends TestCase
     
     /**
      * @test
+     * 
+     * @param null|string $value The value for the identity
+     * 
+     * @dataProvider provideValidIdentityValues
      */
-    public function itCreatesAnIdentityFromAValue()
+    public function itCreatesAnIdentityFromAValue($value)
     {
-        $uuid = Uuid::uuid4()->toString();
-        $id   = UuidIdentity::from($uuid);
+        $id = UuidIdentity::from($value);
 
         $this->assertValidIdentity($id);
+    }
+    
+    public function provideValidIdentityValues()
+    {
+        return [
+            [Uuid::uuid4()->toString()],
+            [null],
+        ];
     }
     
     /**
@@ -68,6 +79,7 @@ class UuidIdentityTest extends TestCase
             [new \stdClass()],
             [1],
             ['string'],
+            [''],
         ];
     }
     
@@ -93,22 +105,41 @@ class UuidIdentityTest extends TestCase
         $this->assertFalse($id->equals($clonedId));
     }
     
-    private function assertValidIdentity(UuidIdentity $id): bool
+    /**
+     * @test
+     */
+    public function itFailesComparingTwoIdentity()
     {
-        $assertInstanceOf = $this->assertInstanceOf(UuidIdentity::class, $id);
-        $assertUuid       = $this->assertUuid($id->id());
-
-        return $assertInstanceOf && $assertUuid;
+        $uuid = UuidIdentity::generate();
+        $generatedId = GeneratedIdentity::generate();
+        
+        $this->assertFalse($uuid->equals($generatedId)); // To test UuidIdentity::equals
+        $this->assertFalse($generatedId->equals($uuid)); // To test BasicIdentity::equals
+    }
+    
+    private function assertValidIdentity(UuidIdentity $id)
+    {
+        $this->assertInstanceOf(UuidIdentity::class, $id);
+        
+        if (null !== $id->value()) {
+            $this->assertUuid($id->value());
+        }
     }
     
     /**
      * Taked from beberlei/assert
      */
-    private function assertUuid($value): bool
+    private function assertUuid($value)
     {
         $uuid = \str_replace(array('urn:', 'uuid:', '{', '}'), '', $value);
 
-        return \preg_match('/^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$/', $uuid);
+        $this->assertRegExp(
+            '/^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$/',
+            $uuid,
+            sprintf(
+                'Failed asserting that \'%s\' is a valid UUID.',
+                $value
+        ));
     }
 
 }

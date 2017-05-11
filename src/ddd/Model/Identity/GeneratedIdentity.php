@@ -4,7 +4,7 @@ namespace ddd\Model\Identity;
 
 use Assert\Assertion;
 
-use ddd\Model\Identity\Identity;
+use ddd\Model\Identity\BasicIdentity;
 
 /**
  * Represents an identity of an entity generate with a Generator.
@@ -13,7 +13,7 @@ use ddd\Model\Identity\Identity;
  * 
  * @author ely
  */
-class GeneratedIdentity extends Identity
+class GeneratedIdentity extends BasicIdentity
 {
 
     /**
@@ -30,10 +30,6 @@ class GeneratedIdentity extends Identity
      */
     public static function generateWith(callable $generator)
     {
-//        Je rajoute une méthode, classe enfant c'est logique
-//        Mais UuidIdentity ne dois pas être appelée avec generateWith
-//        Ou est-ce acceptable ???
-        
         $id = new static();
         $id->setGenerator($generator);
         

@@ -1,14 +1,15 @@
 <?php
 
-namespace tests\ddd\Specification;
+namespace ddd\Specification;
 
 use PHPUnit\Framework\TestCase;
 
 use ddd\Specification\Specification;
-use ddd\Specification\AbstractSpecification;
 use ddd\Specification\AndSpecification;
 use ddd\Specification\OrSpecification;
 use ddd\Specification\NotSpecification;
+
+use ddd\Specification\SpecificationMock;
 
 /**
  * Tests the specification system.
