@@ -11,7 +11,7 @@ use ddd\Model\Identity\BasicIdentity;
  *
  * @see ddd\Specification\Generator
  * 
- * @author ely
+ * @author cdejoye
  */
 class GeneratedIdentity extends BasicIdentity
 {

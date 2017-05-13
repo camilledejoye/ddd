@@ -7,7 +7,7 @@ use ddd\Specification\Specification;
 /**
  * A trait for all specification with two operands.
  * 
- * @author ely
+ * @author cdejoye
  */
 trait BinarySpecificationTrait
 {

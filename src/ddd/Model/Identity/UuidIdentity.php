@@ -11,7 +11,7 @@ use ddd\Model\Identity\GeneratedIdentity;
 /**
  * Represents an identity as a UUID.
  *
- * @author ely
+ * @author cdejoye
  */
 class UuidIdentity implements Identity
 {

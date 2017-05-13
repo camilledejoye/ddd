@@ -9,7 +9,7 @@ use ddd\Specification\NotSpecification;
 /**
  * A base for all Specification objects.
  *
- * @author ely
+ * @author cdejoye
  */
 abstract class AbstractSpecification implements Specification
 {

@@ -5,7 +5,7 @@ namespace ddd\Utility;
 /**
  * Represents objects that can be compared to something.
  *
- * @author ely
+ * @author cdejoye
  */
 interface Equals
 {

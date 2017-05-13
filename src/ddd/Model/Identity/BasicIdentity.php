@@ -11,7 +11,7 @@ use ddd\Model\Identity\Identity;
 /**
  * Represents an identity.
  * 
- * @author ely
+ * @author cdejoye
  */
 class BasicIdentity implements Identity
 {

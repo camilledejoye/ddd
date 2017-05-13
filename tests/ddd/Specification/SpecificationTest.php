@@ -14,7 +14,7 @@ use ddd\Specification\SpecificationMock;
 /**
  * Tests the specification system.
  *
- * @author ely
+ * @author cdejoye
  */
 class SpecificationTest extends TestCase
 {

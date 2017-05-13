@@ -8,7 +8,7 @@ use ddd\Specification\AbstractSpecification;
  * A specification that requires another one to be wrong
  * in order to be satisfied.
  *
- * @author ely
+ * @author cdejoye
  */
 final class NotSpecification extends AbstractSpecification
 {

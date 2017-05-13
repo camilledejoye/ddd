@@ -7,7 +7,7 @@ use ddd\Utility\Equals;
 /**
  * Represents an entity.
  *
- * @author ely
+ * @author cdejoye
  */
 interface Entity extends Equals
 {

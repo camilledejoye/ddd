@@ -9,7 +9,7 @@ use ddd\Specification\NotSpecification;
 /**
  * Represents any kind of specification.
  * 
- * @author ely
+ * @author cdejoye
  */
 interface Specification
 {

@@ -7,7 +7,7 @@ use ddd\Specification\AbstractSpecification;
 /**
  * Description of SpecificationMock
  *
- * @author ely
+ * @author cdejoye
  */
 class SpecificationMock extends AbstractSpecification
 {

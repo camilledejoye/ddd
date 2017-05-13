@@ -8,7 +8,7 @@ use ddd\Specification\AbstractSpecification;
  * A specification that requires two others to be right
  * in order to be satisfied.
  *
- * @author ely
+ * @author cdejoye
  */
 final class AndSpecification extends AbstractSpecification
 {

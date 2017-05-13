@@ -7,7 +7,7 @@ use ddd\Specification\Specification;
 /**
  * A trait for all specification with one operand.
  * 
- * @author ely
+ * @author cdejoye
  */
 trait UnarySpecificationTrait
 {
