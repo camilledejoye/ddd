@@ -4,12 +4,14 @@ namespace ddd\Model\Entity;
 
 use ddd\Utility\Equals;
 
+use ddd\Model\Entity\Identifies;
+
 /**
  * Represents an entity.
  *
  * @author cdejoye
  */
-interface Entity extends Equals
+interface Entity extends Identifies, Equals
 {
 
     /**
