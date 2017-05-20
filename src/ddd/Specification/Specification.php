@@ -2,10 +2,6 @@
 
 namespace ddd\Specification;
 
-use ddd\Specification\AndSpecification;
-use ddd\Specification\OrSpecification;
-use ddd\Specification\NotSpecification;
-
 /**
  * Represents any kind of specification.
  * 
@@ -21,7 +17,7 @@ interface Specification
      * 
      * @return \ddd\Specification\AndSpecification The new specification.
      */
-    public function and_(Specification $specification): AndSpecification;
+    public function and_(Specification $specification);
     
     /**
      * Adds a "or" clause to a specification.
@@ -30,7 +26,7 @@ interface Specification
      * 
      * @return \ddd\Specification\OrSpecification The new specification.
      */
-    public function or_(Specification $specification): OrSpecification;
+    public function or_(Specification $specification);
     
     /**
      * Adds a "not" clause to a specification.
@@ -39,7 +35,7 @@ interface Specification
      * 
      * @return \ddd\Specification\NotSpecification The new specification.
      */
-    public function not_(): NotSpecification;
+    public function not_();
     
     /**
      * Verifies if a specification is satisfied by an object.
@@ -48,6 +44,6 @@ interface Specification
      * 
      * @return bool true if the specification is satisfied, false otherwise.
      */
-    public function isSatisfiedBy($value): bool;
+    public function isSatisfiedBy($value);
 
 }

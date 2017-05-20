@@ -18,7 +18,7 @@ final class OrSpecification extends AbstractSpecification
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($value): bool
+    public function isSatisfiedBy($value)
     {
         return $this->left->isSatisfiedBy($value)
             || $this->right->isSatisfiedBy($value);

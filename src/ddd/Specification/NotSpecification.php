@@ -18,7 +18,7 @@ final class NotSpecification extends AbstractSpecification
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($value): bool
+    public function isSatisfiedBy($value)
     {
         return false === $this->specification->isSatisfiedBy($value);
     }

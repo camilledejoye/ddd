@@ -17,7 +17,7 @@ abstract class AbstractSpecification implements Specification
     /**
      * {@inheritdoc}
      */
-    public function and_(Specification $specification): AndSpecification
+    public function and_(Specification $specification)
     {
         return new AndSpecification($this, $specification);
     }
@@ -25,7 +25,7 @@ abstract class AbstractSpecification implements Specification
     /**
      * {@inheritdoc}
      */
-    public function or_(Specification $specification): OrSpecification
+    public function or_(Specification $specification)
     {
         return new OrSpecification($this, $specification);
     }
@@ -33,7 +33,7 @@ abstract class AbstractSpecification implements Specification
     /**
      * {@inheritdoc}
      */
-    public function not_(): NotSpecification
+    public function not_()
     {
         return new NotSpecification($this);
     }

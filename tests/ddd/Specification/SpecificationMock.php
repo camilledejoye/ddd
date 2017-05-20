@@ -19,7 +19,7 @@ class SpecificationMock extends AbstractSpecification
         $this->result = $result;
     }
 
-    public function isSatisfiedBy($value): bool
+    public function isSatisfiedBy($value)
     {
         return $this->result;
     }

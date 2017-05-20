@@ -71,7 +71,7 @@ class BasicIdentity implements Identity
     /**
      * {@inheritdoc}
      */
-    public function equals($value): bool
+    public function equals($value)
     {
         if (!($value instanceof static)) {
             return false;
@@ -91,7 +91,7 @@ class BasicIdentity implements Identity
     /**
      * {@inheritdoc}
      */
-    public function __toString(): string
+    public function __toString()
     {
         return (string) $this->value();
     }
