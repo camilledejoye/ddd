@@ -2,7 +2,7 @@
 
 namespace ddd\Model\Entity;
 
-use ddd\Utility\Equals;
+use ddd\Utils\Equals;
 
 use ddd\Model\Entity\Identifies;
 
@@ -13,7 +13,6 @@ use ddd\Model\Entity\Identifies;
  */
 interface Entity extends Identifies, Equals
 {
-
     /**
      * Gets the identity of an entity.
      *
@@ -25,6 +24,4 @@ interface Entity extends Identifies, Equals
      * Clones an entity.
      */
     public function __clone();
-
 }
-

@@ -2,139 +2,121 @@
 
 namespace ddd\Model\Identity;
 
-use Assert\Assert;
-use Assert\Assertion;
-use Assert\LazyAssertionException;
-
 use ddd\Model\Identity\Identity;
+use ddd\Model\Identity\Exception\IdentityValueException;
+use ddd\Utils\Equals;
 
 /**
  * Represents an identity.
- * 
+ *
  * @author cdejoye
  */
 class BasicIdentity implements Identity
 {
-    
     /**
-     * @var mixed The identity of the entity.
+     * @var mixed
      */
-    protected $id;
-    
+    protected $value;
+
     /**
-     * {@inheritdoc}
-     */
-    public static function generate()
-    {
-        return new static();
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public static function copy($idToCopy)
-    {
-        Assertion::isInstanceOf($idToCopy, static::class);
-        
-        $id = new static();
-        
-        $id->id = $idToCopy->value();
-        
-        return $id;
-    }
-    
-    /**
-     * {@inheritdoc}
-     * 
-     * @throws \InvalidArgumentException If the value is neither an integer a string or null.
+     * Creates an identity from a value.
+     *
+     * @param mixed $value
+     *
+     * @throws IdentityValueException
      */
     public static function from($value)
     {
-        self::assertIntegerOrString($value);
-        Assertion::nullOrNotEmpty($value);
-        
-        $id = new static();
-        
-        $id->id = $value;
-        
-        return $id;
+        return new static($value);
     }
-    
+
+    /**
+     * @throws \LogicException
+     */
+    private function __clone()
+    {
+        throw new \LogicException('Cloning a value object ? Weird...');
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function __clone()
+    public function equals($value): bool
     {
-        $this->initialize();
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function equals($value)
-    {
-        if (!($value instanceof static)) {
-            return false;
+        if ($value instanceof Equals) {
+            return $value->equals($this->value());
         }
 
-        return $this->value() === $value->value();
+        return $value === $this->value();
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function value()
     {
-        return $this->id;
+        return $this->value;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->value();
     }
-    
-    /**
-     * Asserts if a value is an integer or a string.
-     * 
-     * @param mixed $value The value to assert against.
-     * 
-     * @return void
-     * 
-     * @throws \InvalidArgumentException If the value is neither an integer a string or null.
-     */
-    protected static function assertIntegerOrString($value)
-    {
-        try {
-            Assert::lazy()->tryAll()
-                ->that($value, 'value id')->nullOr()->integer()
-                ->that($value, 'value id')->nullOr()->string()
-                ->verifyNow();
-        } catch(LazyAssertionException $exception) {
-            if (2 === count($exception->getErrorExceptions())) {
-                throw new \InvalidArgumentException('The value of an identity must be either an integer or a string.');
-            }
-        }
-        
-        return;
-    }
-    
+
     /**
      * Constructs an identity.
+     *
+     * @param mixed $value
+     *
+     * @throws IdentityValueException
      */
-    protected function __construct()
+    protected function __construct($value)
     {
-        $this->initialize();
+        static::assertThatItsAValidIdentityValue($value);
+
+        $this->value = $value;
     }
 
     /**
-     * Initializes an identity.
+     * Asserts that a value is a valid identity value.
+     *
+     * @param mixed $value
+     *
+     * @return void
+     *
+     * @throws IdentityValueException
      */
-    protected function initialize()
+    protected static function assertThatItsAValidIdentityValue($value): void
     {
-        $this->id = null;
+        if (!$value) {
+            throw IdentityValueException::becauseAnIndentityCantBeEmpty();
+        }
+
+        self::assertThatAValueIsConvertibleIntoAString($value);
     }
 
+    /**
+     * Asserts that a value is convertible into a string.
+     *
+     * @param mixed $value
+     *
+     * @return void
+     *
+     * @throws IdentityValueException
+     */
+    protected static function assertThatAValueIsConvertibleIntoAString($value)
+    {
+        set_error_handler(function (int $errno, string $errstr) {
+            throw IdentityValueException::becauseAnIdentityMustBeConvertibleIntoAString();
+        });
+
+        try {
+            (string) $value;
+        } finally {
+            restore_error_handler();
+        }
+    }
 }

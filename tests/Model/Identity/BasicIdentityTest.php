@@ -1,97 +1,70 @@
 <?php
 
-namespace ddd\Model\Identity;
+namespace ddd\Test\Model\Identity;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use ddd\Model\Identity\BasicIdentity;
+use ddd\Model\Identity\Exception\IdentityValueException;
+use ddd\Model\Identity\Identity;
+use ddd\Utils\Equals;
 
 class BasicIdentityTest extends TestCase
 {
-    
+    const IDENTITY_VALUE = 'myIdentityValue';
+
+    /**
+     * @var BasicIdentity|MockObject
+     */
+    private $sut;
+
+    protected function setUp()
+    {
+        $this->sut = BasicIdentity::from(self::IDENTITY_VALUE);
+    }
+
     /**
      * @test
+     * @dataProvider providesInvalidIdentityValues
      */
-    public function itGeneratesANullIdentity()
+    public function thatItCantCreateAnIdentityFromAnInvalidValue($value)
     {
-        $id = BasicIdentity::generate();
-        
-        $this->assertInstanceOf(BasicIdentity::class, $id);
-        $this->assertNull($id->value());
-    }
-    
-    /**
-     * @test
-     * 
-     * @param int|string $value The value for the identity
-     * 
-     * @dataProvider provideValidIdentityValues
-     */
-    public function itCreatesAnIdentityFromAValue($value)
-    {
-        $id = BasicIdentity::from($value);
-        
-        $this->assertInstanceOf(BasicIdentity::class, $id);
-        $this->assertEquals($value, $id->value());
-    }
-    
-    public function provideValidIdentityValues()
-    {
-        return [
-            [1],
-            ['string'],
-            [null],
-        ];
-    }
-    
-    /**
-     * @test
-     * 
-     * @param mixed $value An invalid value.
-     * 
-     * @dataProvider provideInvalidIdentityValues
-     */
-    public function itFailsCreatingAnIdentityFromAValue($value)
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        
+        $this->expectException(IdentityValueException::class);
+
         BasicIdentity::from($value);
     }
-    
-    public function provideInvalidIdentityValues()
+
+    public function providesInvalidIdentityValues()
     {
-        // Doesn't test everything (like ressources)
         return [
-            [1.1],
-            [array()],
-            [array(1)],
-            [true],
-            [new \stdClass()],
-            [''],
+            'An empty string'                       => [''],
+            'NULL'                                  => [null],
+            'An object without __toString() method' => [new \StdClass()],
+            'An array'                              => [[1, 2, 5, 49, 'fd']],
         ];
     }
-    
+
     /**
      * @test
+     * @dataProvider providesValuesEqualsToTheSut
      */
-    public function itCopiesAnIdentity()
+    public function thatAnIdentityEqualsAValue($value)
     {
-        $id       = BasicIdentity::from(1);
-        $copiedId = BasicIdentity::copy($id);
-
-        $this->assertTrue($id->equals($copiedId));
-    }
-    
-    /**
-     * @test
-     */
-    public function itClonesAnIdentity()
-    {
-        $id       = BasicIdentity::from(1);
-        $clonedId = clone $id;
-
-        $this->assertFalse($id->equals($clonedId));
+        $this->assertTrue($this->sut->equals($value));
     }
 
+    public function providesValuesEqualsToTheSut()
+    {
+        $equalsImplementation = $this->createMock(Equals::class);
+        $equalsImplementation->expects($this->once())
+            ->method('equals')
+            ->with($this->identicalTo(self::IDENTITY_VALUE))
+            ->willReturn(true);
+
+        return [
+            'The identity value'                                               => [self::IDENTITY_VALUE],
+            'Any objects implementing Equals and for which equals return true' => [$equalsImplementation],
+        ];
+    }
 }
-
