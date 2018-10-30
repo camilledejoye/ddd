@@ -13,11 +13,10 @@ use ddd\Specification\NotSpecification;
  */
 abstract class AbstractSpecification implements Specification
 {
- 
     /**
      * {@inheritdoc}
      */
-    public function and_(Specification $specification)
+    public function andX(Specification $specification)
     {
         return new AndSpecification($this, $specification);
     }
@@ -25,7 +24,7 @@ abstract class AbstractSpecification implements Specification
     /**
      * {@inheritdoc}
      */
-    public function or_(Specification $specification)
+    public function orX(Specification $specification)
     {
         return new OrSpecification($this, $specification);
     }
@@ -33,9 +32,8 @@ abstract class AbstractSpecification implements Specification
     /**
      * {@inheritdoc}
      */
-    public function not_()
+    public function notX()
     {
         return new NotSpecification($this);
     }
-
 }

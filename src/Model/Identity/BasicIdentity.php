@@ -109,9 +109,11 @@ class BasicIdentity implements Identity
      */
     protected static function assertThatAValueIsConvertibleIntoAString($value)
     {
-        set_error_handler(function (int $errno, string $errstr) {
-            throw IdentityValueException::becauseAnIdentityMustBeConvertibleIntoAString();
-        });
+        set_error_handler(
+            function (int $errno, string $errstr) {
+                throw IdentityValueException::becauseAnIdentityMustBeConvertibleIntoAString();
+            }
+        );
 
         try {
             (string) $value;

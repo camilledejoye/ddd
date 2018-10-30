@@ -12,15 +12,13 @@ use ddd\Specification\AbstractSpecification;
  */
 final class NotSpecification extends AbstractSpecification
 {
-
     use UnarySpecificationTrait;
-    
+
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($value)
+    public function isSatisfiedBy($value): bool
     {
         return false === $this->specification->isSatisfiedBy($value);
     }
-
 }

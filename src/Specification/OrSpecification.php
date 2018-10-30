@@ -12,16 +12,14 @@ use ddd\Specification\AbstractSpecification;
  */
 final class OrSpecification extends AbstractSpecification
 {
-
     use BinarySpecificationTrait;
-    
+
     /**
      * {@inheritdoc}
      */
-    public function isSatisfiedBy($value)
+    public function isSatisfiedBy($value): bool
     {
         return $this->left->isSatisfiedBy($value)
             || $this->right->isSatisfiedBy($value);
     }
-
 }
