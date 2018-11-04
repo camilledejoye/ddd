@@ -1,0 +1,33 @@
+{
+    "commit-msg": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "\\SebastianFeldmann\\CaptainHook\\Hook\\Message\\Action\\Beams",
+                "options": []
+            }
+        ]
+    },
+    "pre-commit": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "\\SebastianFeldmann\\CaptainHook\\Hook\\Composer\\Action\\CheckLockFile",
+                "options": []
+            },
+            {
+                "action": "vendor/bin/parallel-lint --colors --exclude app --exclude vendor --exclude var --exclude node_modules ."
+            },
+            {
+                "action": "phpunit --colors=always"
+            },
+            {
+                "action": "phpcs --colors --standard=PSR2 --ignore=vendor/,var/,.git/ ."
+            }
+        ]
+    },
+    "pre-push": {
+        "enabled": false,
+        "actions": []
+    }
+}
