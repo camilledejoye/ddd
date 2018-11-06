@@ -2,25 +2,13 @@
 
 namespace ddd\Event;
 
+use ddd\Common\RefersToAnAggregate;
+
 /**
- * Basic implementation for a domain's event.
+ * Interface for domain events
  *
  * @author cdejoye
  */
-class DomainEvent
+interface DomainEvent extends Event, RefersToAnAggregate
 {
-    /**
-     * @var \DateTimeImmutable The date when an event occured.
-     */
-    private $occuredOn;
-
-    /**
-     * Gets the date when the event occured.
-     *
-     * @return \DateTimeImmutable The date.
-     */
-    public function occuredOn()
-    {
-        return $this->occuredOn;
-    }
 }
