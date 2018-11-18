@@ -1,6 +1,6 @@
 <?php
 
-namespace ddd\Utils;
+namespace ddd\Common;
 
 /**
  * Represents objects that can be compared to something.

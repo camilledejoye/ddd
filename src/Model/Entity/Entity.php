@@ -2,7 +2,7 @@
 
 namespace ddd\Model\Entity;
 
-use ddd\Utils\Equals;
+use ddd\Common\Equals;
 
 use ddd\Model\Entity\Identifies;
 

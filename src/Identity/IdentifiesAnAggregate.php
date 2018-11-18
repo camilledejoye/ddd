@@ -2,7 +2,9 @@
 
 namespace ddd\Identity;
 
-interface IdentifiesAnAggregate
+use ddd\Common\Equals;
+
+interface IdentifiesAnAggregate extends Equals
 {
     /**
      * Creates an identity from a string representation.
@@ -12,16 +14,6 @@ interface IdentifiesAnAggregate
      * @return static
      */
     public static function fromString(string $value);
-
-    /**
-     * Compares a value to an identity.
-     * To be equals, two identities must have the same type and value.
-     *
-     * @param mixed $other
-     *
-     * @return bool
-     */
-    public function equals($other): bool;
 
     /**
      * Returns the string representatio of the identity.
