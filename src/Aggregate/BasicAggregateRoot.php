@@ -5,12 +5,19 @@ namespace ddd\Aggregate;
 use ddd\Event\AggregateChanges;
 use ddd\Event\AggregateHistory;
 use ddd\Event\DomainEvent;
+use ddd\Identity\IdentifiesAnAggregate;
 
 trait BasicAggregateRoot
 {
     /**
+     * @var IdentifiesAnAggregate
+     */
+    private $id;
+
+    /**
      * @var AggregateChanges
      */
+
     private $pendingEvents;
 
     /**
@@ -27,6 +34,46 @@ trait BasicAggregateRoot
     public function clearPendingEvents()
     {
         $this->pendingEvents->clear();
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function equals($other): bool
+    {
+        if (!\is_object($other)) {
+            return false;
+        }
+
+        if (\get_class($other) !== \get_class()) {
+            return false;
+        }
+
+        return $other->id()->equals($this->id());
+    }
+
+    /**
+     * Gets the identity of an aggregate root.
+     *
+     * @return IdentifiesAnAggregate
+     */
+    public function id(): IdentifiesAnAggregate
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the identity of the aggregate root.
+     *
+     * @param IdentifiesAnAggregate $id
+     *
+     * @return static
+     */
+    protected function setId(IdentifiesAnAggregate $id)
+    {
+        $this->id = $id;
 
         return $this;
     }

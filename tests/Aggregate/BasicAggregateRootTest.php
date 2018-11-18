@@ -2,6 +2,7 @@
 
 namespace ddd\Test\Aggregate;
 
+use ddd\Aggregate\AggregateRoot as AggregateRootInterface;
 use ddd\Aggregate\BasicAggregateRoot;
 use PHPUnit\Framework\TestCase;
 use ddd\Event\AggregateHistory;
@@ -54,6 +55,41 @@ class BasicAggregateRootTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function shouldBeEqualsToItself()
+    {
+        $aggregateId = $this->createAnAggregateId();
+        $sut = AggregateRoot::create($aggregateId);
+        $otherSut = AggregateRoot::create($aggregateId);
+
+        $this->assertTrue($sut->equals($otherSut));
+    }
+
+    /**
+     * @test
+     * @dataProvider provideDifferentsAggregatesRoot
+     */
+    public function shouldNotBeEqualsToSomeOthersAggregatesRoot($other)
+    {
+        $sut = AggregateRoot::create($this->createAnAggregateId());
+
+        $this->assertFalse($sut->equals($other));
+    }
+
+    public function provideDifferentsAggregatesRoot()
+    {
+        return [
+            'a non object value' => [true],
+            'a totally different kind of object' => [new \StdClass()],
+            'another king of aggregate' => [$this->createMock(AggregateRootInterface::class)],
+            'the same kind of aggregate with a different identity' => [
+                AggregateRoot::create($this->createAnAggregateId())
+            ],
+        ];
+    }
+
+    /**
      * @return IdentifiesAnAggregate
      */
     private function createAnAggregateId()
@@ -61,7 +97,9 @@ class BasicAggregateRootTest extends TestCase
         $aggregateId = $this->createMock(IdentifiesAnAggregate::class);
         $aggregateId
             ->method('equals')
-            ->willReturn(true);
+            ->willReturnCallback(function ($other) use ($aggregateId) {
+                return $other === $aggregateId;
+            });
 
         return $aggregateId;
     }

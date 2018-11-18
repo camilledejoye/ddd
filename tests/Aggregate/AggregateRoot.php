@@ -15,11 +15,6 @@ class AggregateRoot implements Base
 {
     use BasicAggregateRoot;
 
-    /**
-     * @var IdentifiesAnAggregate
-     */
-    private $aggregateId;
-
     public $onTestEventCount;
     public $onOtherTestEventCount;
 
@@ -41,7 +36,7 @@ class AggregateRoot implements Base
 
     protected function __construct(IdentifiesAnAggregate $aggregateId)
     {
-        $this->aggregateId = $aggregateId;
+        $this->setId($aggregateId);
         $this->pendingEvents = AggregateChanges::createFor($aggregateId);
         $this->onTestEventCount = 0;
         $this->onOtherTestEventCount = 0;
@@ -49,12 +44,12 @@ class AggregateRoot implements Base
 
     public function recordTestEvent()
     {
-        $this->recordThat(new TestEvent($this->aggregateId));
+        $this->recordThat(new TestEvent($this->id()));
     }
 
     public function recordOtherTestEvent()
     {
-        $this->recordThat(new OtherTestEvent($this->aggregateId));
+        $this->recordThat(new OtherTestEvent($this->id()));
     }
 
     protected function onTestEvent(TestEvent $event)
