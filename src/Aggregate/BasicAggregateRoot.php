@@ -23,7 +23,7 @@ trait BasicAggregateRoot
     /**
      * {@inheritdoc}
      */
-    public function getPendingEvents(): AggregateChanges
+    public function pendingEvents(): AggregateChanges
     {
         return $this->pendingEvents;
     }

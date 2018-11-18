@@ -24,7 +24,7 @@ interface IsEventSourced
      *
      * @return AggregateChanges
      */
-    public function getPendingEvents(): AggregateChanges;
+    public function pendingEvents(): AggregateChanges;
 
     /**
      * Clears the pending events.

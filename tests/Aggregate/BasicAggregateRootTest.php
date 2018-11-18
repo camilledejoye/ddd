@@ -35,9 +35,9 @@ class BasicAggregateRootTest extends TestCase
     {
         $sut = AggregateRoot::create($this->createAnAggregateId());
         $sut->recordTestEvent();
-        $sut->getPendingEvents()->rewind();
+        $sut->pendingEvents()->rewind();
 
-        $this->assertInstanceOf(TestEvent::class, $sut->getPendingEvents()->current());
+        $this->assertInstanceOf(TestEvent::class, $sut->pendingEvents()->current());
         $this->assertEquals(1, $sut->onTestEventCount);
 
         return $sut;
@@ -51,7 +51,7 @@ class BasicAggregateRootTest extends TestCase
     {
         $sut->clearPendingEvents();
 
-        $this->assertCount(0, $sut->getPendingEvents());
+        $this->assertCount(0, $sut->pendingEvents());
     }
 
     /**
