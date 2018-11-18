@@ -74,8 +74,28 @@ class UuidTest extends TestCase
         return [
             'The string representation of the UUID' => [self::UUID4],
             'Another type of identity' => [$this->getMockForAbstractClass(IdentifiesAnAggregate::class)],
+            'A child identity with the same value' => [ChildUuid::fromString(self::UUID4)],
             'NULL' => [null],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function shouldBeEqualsToItself()
+    {
+        $this->assertTrue($this->sut->equals($this->sut));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldTestTheEqualityOfInheritedTypesCorrectly()
+    {
+        $sut = ChildUuid::fromString(self::UUID4);
+        $other = ChildUuid::fromString(self::UUID4);
+
+        $this->assertTrue($sut->equals($other));
     }
 
     /**

@@ -46,7 +46,7 @@ class Uuid implements IdentifiesAnAggregate, GeneratesIdentities
             return false;
         }
 
-        if (\get_class() !== \get_class($other)) {
+        if (\get_class($this) !== \get_class($other)) {
             return false;
         }
 
