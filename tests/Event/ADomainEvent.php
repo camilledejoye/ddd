@@ -2,34 +2,16 @@
 
 namespace ddd\Test\Event;
 
+use ddd\Event\BasicDomainEvent;
 use ddd\Event\DomainEvent;
 use ddd\Identity\IdentifiesAnAggregate;
 
 class ADomainEvent implements DomainEvent
 {
-    /**
-     * @var IdentifiesAnAggregate
-     */
-    private $aggregateId;
+    use BasicDomainEvent;
 
     public function __construct(IdentifiesAnAggregate $aggregateId)
     {
-        $this->aggregateId = $aggregateId;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function occuredOn()
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function aggregateId()
-    {
-        return $this->aggregateId;
+        $this->initializeTheEvent($aggregateId);
     }
 }
