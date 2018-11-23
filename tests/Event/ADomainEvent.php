@@ -5,7 +5,7 @@ namespace ddd\Test\Event;
 use ddd\Event\DomainEvent;
 use ddd\Identity\IdentifiesAnAggregate;
 
-class OtherTestEvent implements DomainEvent
+class ADomainEvent implements DomainEvent
 {
     /**
      * @var IdentifiesAnAggregate

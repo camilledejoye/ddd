@@ -8,8 +8,8 @@ use PHPUnit\Framework\TestCase;
 use ddd\Event\AggregateHistory;
 use ddd\Event\DomainEvent;
 use ddd\Identity\IdentifiesAnAggregate;
-use ddd\Test\Event\OtherTestEvent;
-use ddd\Test\Event\TestEvent;
+use ddd\Test\Event\AnotherDomainEvent;
+use ddd\Test\Event\ADomainEvent;
 
 class BasicAggregateRootTest extends TestCase
 {
@@ -24,8 +24,8 @@ class BasicAggregateRootTest extends TestCase
 
         $sut = AggregateRoot::reconstituteFrom($aggregateHistory);
 
-        $this->assertEquals(3, $sut->onTestEventCount);
-        $this->assertEquals(2, $sut->onOtherTestEventCount);
+        $this->assertEquals(3, $sut->onADomainEventCount);
+        $this->assertEquals(2, $sut->onAnotherDomainEventCount);
     }
 
     /**
@@ -34,11 +34,11 @@ class BasicAggregateRootTest extends TestCase
     public function shouldRecordAndApplyAnEvent()
     {
         $sut = AggregateRoot::create($this->createAnAggregateId());
-        $sut->recordTestEvent();
+        $sut->recordADomainEvent();
         $sut->pendingEvents()->rewind();
 
-        $this->assertInstanceOf(TestEvent::class, $sut->pendingEvents()->current());
-        $this->assertEquals(1, $sut->onTestEventCount);
+        $this->assertInstanceOf(ADomainEvent::class, $sut->pendingEvents()->current());
+        $this->assertEquals(1, $sut->onADomainEventCount);
 
         return $sut;
     }
@@ -105,19 +105,19 @@ class BasicAggregateRootTest extends TestCase
     }
 
     /**
-     * @return TestEvent
+     * @return ADomainEvent
      */
-    private function createATestEvent(IdentifiesAnAggregate $aggregateId)
+    private function createAADomainEvent(IdentifiesAnAggregate $aggregateId)
     {
-        return new TestEvent($aggregateId);
+        return new ADomainEvent($aggregateId);
     }
 
     /**
-     * @return OtherTestEvent
+     * @return AnotherDomainEvent
      */
-    private function createAnOtherTestEvent(IdentifiesAnAggregate $aggregateId)
+    private function createAnAnotherDomainEvent(IdentifiesAnAggregate $aggregateId)
     {
-        return new OtherTestEvent($aggregateId);
+        return new AnotherDomainEvent($aggregateId);
     }
 
     /**
@@ -126,11 +126,11 @@ class BasicAggregateRootTest extends TestCase
     private function createAListOfEvents(IdentifiesAnAggregate $aggregateId)
     {
         return [
-            $this->createAnOtherTestEvent($aggregateId),
-            $this->createATestEvent($aggregateId),
-            $this->createATestEvent($aggregateId),
-            $this->createAnOtherTestEvent($aggregateId),
-            $this->createATestEvent($aggregateId),
+            $this->createAnAnotherDomainEvent($aggregateId),
+            $this->createAADomainEvent($aggregateId),
+            $this->createAADomainEvent($aggregateId),
+            $this->createAnAnotherDomainEvent($aggregateId),
+            $this->createAADomainEvent($aggregateId),
         ];
     }
 }

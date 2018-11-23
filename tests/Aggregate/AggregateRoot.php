@@ -8,15 +8,15 @@ use ddd\Event\AggregateChanges;
 use ddd\Event\AggregateHistory;
 use ddd\Event\DomainEvent;
 use ddd\Identity\IdentifiesAnAggregate;
-use ddd\Test\Event\OtherTestEvent;
-use ddd\Test\Event\TestEvent;
+use ddd\Test\Event\AnotherDomainEvent;
+use ddd\Test\Event\ADomainEvent;
 
 class AggregateRoot implements Base
 {
     use BasicAggregateRoot;
 
-    public $onTestEventCount;
-    public $onOtherTestEventCount;
+    public $onADomainEventCount;
+    public $onAnotherDomainEventCount;
 
     /**
      * @return self
@@ -38,30 +38,30 @@ class AggregateRoot implements Base
     {
         $this->setId($aggregateId);
         $this->pendingEvents = AggregateChanges::createFor($aggregateId);
-        $this->onTestEventCount = 0;
-        $this->onOtherTestEventCount = 0;
+        $this->onADomainEventCount = 0;
+        $this->onAnotherDomainEventCount = 0;
     }
 
-    public function recordTestEvent()
+    public function recordADomainEvent()
     {
-        $this->recordThat(new TestEvent($this->id()));
+        $this->recordThat(new ADomainEvent($this->id()));
     }
 
-    public function recordOtherTestEvent()
+    public function recordAnotherDomainEvent()
     {
-        $this->recordThat(new OtherTestEvent($this->id()));
+        $this->recordThat(new AnotherDomainEvent($this->id()));
     }
 
-    protected function onTestEvent(TestEvent $event)
+    protected function onADomainEvent(ADomainEvent $event)
     {
-        ++$this->onTestEventCount;
+        ++$this->onADomainEventCount;
 
         return null;
     }
 
-    protected function onOtherTestEvent(OtherTestEvent $event)
+    protected function onAnotherDomainEvent(AnotherDomainEvent $event)
     {
-        ++$this->onOtherTestEventCount;
+        ++$this->onAnotherDomainEventCount;
 
         return null;
     }
