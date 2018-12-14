@@ -23,6 +23,20 @@ trait BasicAggregateRoot
     /**
      * {@inheritdoc}
      */
+    public static function reconstituteFrom(AggregateHistory $history)
+    {
+        $aggregate = new static($history->aggregateId());
+
+        foreach ($history as $event) {
+            $aggregate->apply($event);
+        }
+
+        return $aggregate;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function pendingEvents(): AggregateChanges
     {
         return $this->pendingEvents;
@@ -76,20 +90,6 @@ trait BasicAggregateRoot
         $this->id = $id;
 
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected static function doReconstituteFrom(AggregateHistory $history)
-    {
-        $aggregate = new static($history->aggregateId());
-
-        foreach ($history as $event) {
-            $aggregate->apply($event);
-        }
-
-        return $aggregate;
     }
 
     /**

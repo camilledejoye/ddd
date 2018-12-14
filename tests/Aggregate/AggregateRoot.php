@@ -21,14 +21,6 @@ class AggregateRoot implements Base
     /**
      * @return self
      */
-    public static function reconstituteFrom(AggregateHistory $history)
-    {
-        return self::doReconstituteFrom($history);
-    }
-
-    /**
-     * @return self
-     */
     public static function create(IdentifiesAnAggregate $aggregateId)
     {
         return new self($aggregateId);
