@@ -2,6 +2,8 @@
 
 namespace ddd\Aggregate;
 
-interface AggregateRoot extends IsEventSourced
+use ddd\Common\RefersToAnAggregate;
+
+interface AggregateRoot extends IsEventSourced, RefersToAnAggregate
 {
 }

@@ -57,4 +57,12 @@ class AggregateRoot implements Base
 
         return null;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function aggregateId(): IdentifiesAnAggregate
+    {
+        return null;
+    }
 }

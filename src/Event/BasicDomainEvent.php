@@ -31,7 +31,7 @@ trait BasicDomainEvent
     /**
      * {@inheritdoc}
      */
-    public function aggregateId()
+    public function aggregateId(): IdentifiesAnAggregate
     {
         return $this->aggregateId;
     }

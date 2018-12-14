@@ -21,7 +21,7 @@ trait BasicAggregateEventStream
      *
      * @return IdentifiesAnAggregate
      */
-    public function aggregateId()
+    public function aggregateId(): IdentifiesAnAggregate
     {
         return $this->aggregateId;
     }

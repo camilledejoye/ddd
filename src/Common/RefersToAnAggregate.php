@@ -11,5 +11,5 @@ interface RefersToAnAggregate
      *
      * @return IdentifiesAnAggregate
      */
-    public function aggregateId();
+    public function aggregateId(): IdentifiesAnAggregate;
 }
