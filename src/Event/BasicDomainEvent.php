@@ -38,14 +38,20 @@ trait BasicDomainEvent
 
     /**
      * Initialize a domain event.
+     * If $occuredOn is not provided, initialize the event with the current date time.
      *
      * @param IdentifiesAnAggregate $aggregateId
+     * @param DateTimeImmutable|null $occuredOn
      *
      * @return void
+     *
+     * @see self::now()
      */
-    protected function initializeTheEvent(IdentifiesAnAggregate $aggregateId): void
-    {
-        $this->occuredOn   = $this->now();
+    protected function initializeTheEvent(
+        IdentifiesAnAggregate $aggregateId,
+        DateTimeImmutable $occuredon = null
+    ): void {
+        $this->occuredOn   = $occuredon ?? $this->now();
         $this->aggregateId = $aggregateId;
     }
 
