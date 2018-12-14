@@ -31,10 +31,31 @@ class AggregateHistoryTest extends TestCase
     {
         $this->aggregateId   = $this->createAnAggregateId();
         $this->initialEvents = $this->createAListOfDomainEvents();
-        $this->sut           = AggregateHistory::fromArray(
+        $this->sut           = AggregateHistory::fromIterable(
             $this->aggregateId,
             $this->initialEvents
         );
+    }
+
+    /**
+     * @test
+     */
+    public function shouldBeConstructibleFromAnArray()
+    {
+        $this->assertCount(count($this->initialEvents), $this->sut);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldBeConstructibaleFromAnIterator()
+    {
+        $sut = AggregateHistory::fromIterable(
+            $this->aggregateId,
+            new \ArrayIterator($this->initialEvents)
+        );
+
+        $this->assertCount(count($this->initialEvents), $sut);
     }
 
     /**
@@ -48,7 +69,7 @@ class AggregateHistoryTest extends TestCase
         $events[(int)(\count($events)/2)] = $this->createAnEvent();
 
         $this->expectException(WrongEventTypeWasProvidedException::class);
-        AggregateHistory::fromArray($aggregateId, $events);
+        AggregateHistory::fromIterable($aggregateId, $events);
     }
 
     /**
@@ -63,7 +84,7 @@ class AggregateHistoryTest extends TestCase
 
         $this->expectException(CorruptedAggregateEventStreamException::class);
 
-        AggregateHistory::fromArray($aggregateId, $events);
+        AggregateHistory::fromIterable($aggregateId, $events);
     }
 
     /**
@@ -73,7 +94,7 @@ class AggregateHistoryTest extends TestCase
     public function shouldKeepTheOrderOfTheProvidedArray(IdentifiesAnAggregate $aggregateId, array $events)
     {
         $sutEvents = [];
-        foreach (AggregateHistory::fromArray($aggregateId, $events) as $event) {
+        foreach (AggregateHistory::fromIterable($aggregateId, $events) as $event) {
             $sutEvents[] = $event;
         }
 

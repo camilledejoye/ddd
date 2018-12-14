@@ -20,7 +20,7 @@ class BasicAggregateRootTest extends TestCase
     {
         $aggregateId = $this->createAnAggregateId();
         $events = $this->createAListOfEvents($aggregateId);
-        $aggregateHistory = AggregateHistory::fromArray($aggregateId, $events);
+        $aggregateHistory = AggregateHistory::fromIterable($aggregateId, $events);
 
         $sut = AggregateRoot::reconstituteFrom($aggregateHistory);
 

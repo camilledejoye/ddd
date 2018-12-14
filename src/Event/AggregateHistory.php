@@ -28,15 +28,18 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
      * Creates a new event stream from an array.
      *
      * @param IdentifiesAnAggregate $aggregateId
-     * @param DomainEvents $array
+     * @param DomainEvent[] $array
      *
      * @return static
      * @throws WrongEventTypeWasProvidedException
      * @throws CorruptedAggregateEventStreamException
      */
-    public static function fromArray(IdentifiesAnAggregate $aggregateId, array $events)
+    public static function fromIterable(IdentifiesAnAggregate $aggregateId, iterable $events)
     {
-        return new static($aggregateId, $events);
+        return new static(
+            $aggregateId,
+            is_array($events) ? $events : \iterator_to_array($events, false)
+        );
     }
 
     /**
@@ -91,7 +94,7 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
      * Initializes the event stream.
      *
      * @param IdentifiesAnAggregate $aggregateId
-     * @param DomainEvents $events
+     * @param DomainEvent[] $events
      *
      * @throws WrongEventTypeWasProvidedException
      * @throws CorruptedAggregateEventStreamException
@@ -100,9 +103,7 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
     {
         $this->setAggregateId($aggregateId);
 
-        foreach ($events as $event) {
-            $this->assertThatAnEventIsValid($event);
-        }
+        \array_walk($events, [$this, 'assertThatAnEventIsValid']);
 
         $this->queue = SplFixedArray::fromArray($events, false);
     }
