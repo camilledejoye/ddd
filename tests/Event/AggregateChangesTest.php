@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Test\Event;
 
 use ddd\Event\DomainEvent;
@@ -29,9 +31,9 @@ class AggregateChangesTest extends TestCase
 
     protected function setUp()
     {
-        $this->aggregateId   = $this->createAnAggregateId();
+        $this->aggregateId = $this->createAnAggregateId();
         $this->initialEvents = $this->createAListOfDomainEvents();
-        $this->sut           = AggregateChanges::fromArray(
+        $this->sut = AggregateChanges::fromArray(
             $this->aggregateId,
             $this->initialEvents
         );
@@ -55,7 +57,7 @@ class AggregateChangesTest extends TestCase
     {
         $events = $this->initialEvents;
         $corruptedDomainEvent = $this->createADomainEvent($this->createAnAggregateId());
-        $events[(int)(\count($this->initialEvents)/2)] = $corruptedDomainEvent;
+        $events[(int) (\count($this->initialEvents) / 2)] = $corruptedDomainEvent;
 
         $this->expectException(CorruptedAggregateEventStreamException::class);
 
@@ -68,7 +70,7 @@ class AggregateChangesTest extends TestCase
     public function shouldRejectArrayWithSomethingElseThanADomainEvent()
     {
         $events = $this->initialEvents;
-        $events[(int)(\count($this->initialEvents)/2)] = $this->createAnEvent();
+        $events[(int) (\count($this->initialEvents) / 2)] = $this->createAnEvent();
 
         $this->expectException(WrongEventTypeWasProvidedException::class);
 
@@ -260,6 +262,7 @@ class AggregateChangesTest extends TestCase
         for ($i = 0; $i < 9; ++$i) {
             $events[] = $this->createADomainEvent($aggregateId);
         }
+
         return $events;
     }
 

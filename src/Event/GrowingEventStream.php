@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Event;
 
 /**
@@ -28,7 +30,7 @@ interface GrowingEventStream extends EventStream
     /**
      * Clears the event stream.
      *
-     * @return Event[] The events previously stored by the stream.
+     * @return Event[] the events previously stored by the stream
      */
     public function clear();
 }

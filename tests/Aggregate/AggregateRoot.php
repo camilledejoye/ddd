@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Test\Aggregate;
 
 use ddd\Aggregate\AggregateRoot as Base;
 use ddd\Aggregate\BasicAggregateRoot;
 use ddd\Event\AggregateChanges;
-use ddd\Event\AggregateHistory;
-use ddd\Event\DomainEvent;
 use ddd\Identity\IdentifiesAnAggregate;
 use ddd\Test\Event\AnotherDomainEvent;
 use ddd\Test\Event\ADomainEvent;
@@ -59,7 +59,7 @@ class AggregateRoot implements Base
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function aggregateId(): IdentifiesAnAggregate
     {

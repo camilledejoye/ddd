@@ -1,8 +1,8 @@
 <?php
 
-namespace ddd\Specification;
+declare(strict_types=1);
 
-use ddd\Specification\Specification;
+namespace ddd\Specification;
 
 /**
  * A trait for all specification with two operands.
@@ -12,24 +12,24 @@ use ddd\Specification\Specification;
 trait BinarySpecificationTrait
 {
     /**
-     * @var \ddd\Specification\Specification The left operand.
+     * @var \ddd\Specification\Specification the left operand
      */
     private $left;
 
     /**
-     * @var \ddd\Specification\Specification The right operand.
+     * @var \ddd\Specification\Specification the right operand
      */
     private $right;
 
     /**
      * Initializes a specification.
      *
-     * @param Specification $left  The left operand.
-     * @param Specification $right The right operand.
+     * @param Specification $left  the left operand
+     * @param Specification $right the right operand
      */
     public function __construct(Specification $left, Specification $right)
     {
-        $this->left  = $left;
+        $this->left = $left;
         $this->right = $right;
     }
 }

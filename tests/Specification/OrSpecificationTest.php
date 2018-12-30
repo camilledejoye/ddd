@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Test\Specification;
 
-use ddd\Specification\OrSpecification;
 use PHPUnit\Framework\TestCase;
 use ddd\Specification\Specification;
 
@@ -21,11 +22,11 @@ class OrSpecificationTest extends TestCase
 
     public function providesSatisfiedOrSpecification(): array
     {
-        $trueSpecification  = new SpecificationMock(true);
+        $trueSpecification = new SpecificationMock(true);
         $falseSpecification = new SpecificationMock(false);
 
         return [
-            'true && true'  => [$trueSpecification,  $trueSpecification],
+            'true && true' => [$trueSpecification,  $trueSpecification],
             'true && false' => [$trueSpecification,  $falseSpecification],
             'false && true' => [$falseSpecification, $trueSpecification],
         ];

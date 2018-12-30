@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Test\Specification;
 
-use ddd\Specification\NotSpecification;
 use PHPUnit\Framework\TestCase;
-use ddd\Specification\Specification;
 
 class NotSpecificationTest extends TestCase
 {

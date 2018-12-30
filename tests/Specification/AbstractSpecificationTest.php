@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Test\Specification;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -23,7 +25,7 @@ class AbstractSpecificationTest extends TestCase
 
     protected function setUp()
     {
-        $this->aSpecification       = $this->getMockForAbstractClass(AbstractSpecification::class);
+        $this->aSpecification = $this->getMockForAbstractClass(AbstractSpecification::class);
         $this->anotherSpecification = $this->getMockForAbstractClass(AbstractSpecification::class);
     }
 

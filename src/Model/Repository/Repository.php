@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Model\Repository;
 
 use ddd\Model\Entity\Entity;

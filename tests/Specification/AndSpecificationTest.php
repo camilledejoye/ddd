@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Test\Specification;
 
-use ddd\Specification\AndSpecification;
 use PHPUnit\Framework\TestCase;
 use ddd\Specification\Specification;
 
@@ -21,12 +22,12 @@ class AndSpecificationTest extends TestCase
 
     public function providesUnsatisfiedAndSpecification(): array
     {
-        $trueSpecification  = new SpecificationMock(true);
+        $trueSpecification = new SpecificationMock(true);
         $falseSpecification = new SpecificationMock(false);
 
         return [
-            'true && false'  => [$trueSpecification,  $falseSpecification],
-            'false && true'  => [$falseSpecification, $trueSpecification],
+            'true && false' => [$trueSpecification,  $falseSpecification],
+            'false && true' => [$falseSpecification, $trueSpecification],
             'false && false' => [$falseSpecification, $falseSpecification],
         ];
     }

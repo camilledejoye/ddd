@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Test\Event;
 
 use ddd\Event\AggregateHistory;
@@ -29,9 +31,9 @@ class AggregateHistoryTest extends TestCase
 
     protected function setUp()
     {
-        $this->aggregateId   = $this->createAnAggregateId();
+        $this->aggregateId = $this->createAnAggregateId();
         $this->initialEvents = $this->createAListOfDomainEvents();
-        $this->sut           = AggregateHistory::fromIterable(
+        $this->sut = AggregateHistory::fromIterable(
             $this->aggregateId,
             $this->initialEvents
         );
@@ -66,7 +68,7 @@ class AggregateHistoryTest extends TestCase
         $aggregateId = $this->createAnAggregateId();
         $events = $this->createAListOfDomainEvents($aggregateId);
 
-        $events[(int)(\count($events)/2)] = $this->createAnEvent();
+        $events[(int) (\count($events) / 2)] = $this->createAnEvent();
 
         $this->expectException(WrongEventTypeWasProvidedException::class);
         AggregateHistory::fromIterable($aggregateId, $events);
@@ -80,7 +82,7 @@ class AggregateHistoryTest extends TestCase
         $aggregateId = $this->createAnAggregateId();
         $events = $this->createAListOfDomainEvents($aggregateId);
         $corruptedDomainEvent = $this->createADomainEvent($this->createAnAggregateId());
-        $events[(int)(\count($events)/2)] = $corruptedDomainEvent;
+        $events[(int) (\count($events) / 2)] = $corruptedDomainEvent;
 
         $this->expectException(CorruptedAggregateEventStreamException::class);
 
@@ -106,12 +108,12 @@ class AggregateHistoryTest extends TestCase
         $aggregateId = $this->createAnAggregateId();
         $events = $this->createAListOfDomainEvents($aggregateId, 3);
         $shuffleKeys = [19, 5, 100];
-        $stringKeys = [ 'first', 'second', 'third'];
+        $stringKeys = ['first', 'second', 'third'];
 
         return [
-            'consecutive numeric indexes'     => [$aggregateId, $events],
+            'consecutive numeric indexes' => [$aggregateId, $events],
             'non consecutive numeric indexes' => [$aggregateId, \array_combine($shuffleKeys, $events)],
-            'string indexes'                  => [$aggregateId, \array_combine($stringKeys, $events)],
+            'string indexes' => [$aggregateId, \array_combine($stringKeys, $events)],
         ];
     }
 

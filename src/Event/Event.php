@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Event;
 
 /**
@@ -10,7 +12,7 @@ interface Event
     /**
      * Gets the date when the event occured.
      *
-     * @return \DateTimeImmutable The date.
+     * @return \DateTimeImmutable the date
      */
     public function occuredOn();
 }

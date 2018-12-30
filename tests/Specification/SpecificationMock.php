@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Test\Specification;
 
 use ddd\Specification\AbstractSpecification;
 
 /**
- * Description of SpecificationMock
+ * Description of SpecificationMock.
  *
  * @author cdejoye
  */

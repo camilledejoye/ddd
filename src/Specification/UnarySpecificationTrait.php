@@ -1,8 +1,8 @@
 <?php
 
-namespace ddd\Specification;
+declare(strict_types=1);
 
-use ddd\Specification\Specification;
+namespace ddd\Specification;
 
 /**
  * A trait for all specification with one operand.
@@ -12,15 +12,15 @@ use ddd\Specification\Specification;
 trait UnarySpecificationTrait
 {
     /**
-     * @var \ddd\Specification\Specification The left operand.
+     * @var \ddd\Specification\Specification the left operand
      */
     private $specification;
 
     /**
      * Initializes a specification.
      *
-     * @param Specification $left  The left operand.
-     * @param Specification $right The right operand.
+     * @param Specification $left  the left operand
+     * @param Specification $right the right operand
      */
     public function __construct(Specification $specification)
     {

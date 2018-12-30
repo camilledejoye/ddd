@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Event;
 
 use ddd\Event\Exception\EventStreamException;
@@ -19,9 +21,8 @@ trait BasicEventStream
      *
      * @param mixed $event
      *
-     * @return void
-     *
      * @throws WrongEventTypeWasProvidedException
+     *
      * @see BasicEventStream::acceptableEventType()
      */
     protected function assertThatAnEventIsValid($event)

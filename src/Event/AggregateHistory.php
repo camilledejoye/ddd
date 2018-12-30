@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Event;
 
-use SplDoublyLinkedList;
 use SplFixedArray;
-use ddd\Event\Exception\AggregateHistoryException;
 use ddd\Event\Exception\WrongEventTypeWasProvidedException;
 use ddd\Identity\IdentifiesAnAggregate;
 
@@ -12,6 +12,7 @@ use ddd\Identity\IdentifiesAnAggregate;
  * An event stream, which is a queue used to store events.
  *
  * @final
+ *
  * @see \Iterator
  * @see \Countable
  */
@@ -28,9 +29,10 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
      * Creates a new event stream from an array.
      *
      * @param IdentifiesAnAggregate $aggregateId
-     * @param DomainEvent[] $array
+     * @param DomainEvent[]         $array
      *
      * @return static
+     *
      * @throws WrongEventTypeWasProvidedException
      * @throws CorruptedAggregateEventStreamException
      */
@@ -43,7 +45,7 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function current()
     {
@@ -51,7 +53,7 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function next()
     {
@@ -59,7 +61,7 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function key()
     {
@@ -67,7 +69,7 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function valid()
     {
@@ -75,7 +77,7 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function rewind()
     {
@@ -83,7 +85,7 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function count()
     {
@@ -94,7 +96,7 @@ class AggregateHistory implements ImmutableEventStream, AggregateEventStream
      * Initializes the event stream.
      *
      * @param IdentifiesAnAggregate $aggregateId
-     * @param DomainEvent[] $events
+     * @param DomainEvent[]         $events
      *
      * @throws WrongEventTypeWasProvidedException
      * @throws CorruptedAggregateEventStreamException

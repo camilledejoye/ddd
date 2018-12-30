@@ -1,8 +1,8 @@
 <?php
 
-namespace ddd\Specification;
+declare(strict_types=1);
 
-use ddd\Specification\AbstractSpecification;
+namespace ddd\Specification;
 
 /**
  * A specification that requires two others to be right

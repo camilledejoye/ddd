@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Event;
 
 use SplDoublyLinkedList;
 use SplQueue;
-use ddd\Event\Exception\EventStreamException;
 use ddd\Event\Exception\WrongEventTypeWasProvidedException;
 use ddd\Identity\IdentifiesAnAggregate;
 
@@ -12,6 +13,7 @@ use ddd\Identity\IdentifiesAnAggregate;
  * An event stream, which is a queue used to store events.
  *
  * @final
+ *
  * @see \Iterator
  * @see \Countable
  */
@@ -28,9 +30,10 @@ class AggregateChanges implements GrowingEventStream, AggregateEventStream
      * Creates a new event stream from an array.
      *
      * @param IdentifiesAnAggregate $aggregateId
-     * @param DomainEvent[] $events
+     * @param DomainEvent[]         $events
      *
      * @return static
+     *
      * @throws WrongEventTypeWasProvidedException
      * @throws CorruptedAggregateEventStreamException
      */
@@ -83,7 +86,7 @@ class AggregateChanges implements GrowingEventStream, AggregateEventStream
     /**
      * {@inheritdoc}
      *
-     * @return DomainEvent[] The domain events previously stored by the stream.
+     * @return DomainEvent[] the domain events previously stored by the stream
      */
     public function clear()
     {
@@ -99,7 +102,7 @@ class AggregateChanges implements GrowingEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @return Event
      */
@@ -109,7 +112,7 @@ class AggregateChanges implements GrowingEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function next()
     {
@@ -117,7 +120,7 @@ class AggregateChanges implements GrowingEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function key()
     {
@@ -125,7 +128,7 @@ class AggregateChanges implements GrowingEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function valid()
     {
@@ -133,7 +136,7 @@ class AggregateChanges implements GrowingEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function rewind()
     {
@@ -141,7 +144,7 @@ class AggregateChanges implements GrowingEventStream, AggregateEventStream
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function count()
     {

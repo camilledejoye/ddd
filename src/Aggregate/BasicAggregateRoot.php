@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Aggregate;
 
 use ddd\Event\AggregateChanges;
@@ -17,7 +19,6 @@ trait BasicAggregateRoot
     /**
      * @var AggregateChanges
      */
-
     private $pendingEvents;
 
     /**
@@ -96,8 +97,6 @@ trait BasicAggregateRoot
      * Records an event.
      *
      * @param DomainEvent $event
-     *
-     * @return void
      */
     protected function recordThat(DomainEvent $event): void
     {
@@ -109,8 +108,6 @@ trait BasicAggregateRoot
      * Apply an event onto the aggregate.
      *
      * @param DomainEvent $event
-     *
-     * @return void
      */
     protected function apply(DomainEvent $event): void
     {
@@ -131,7 +128,7 @@ trait BasicAggregateRoot
         $eventFqn = \get_class($event);
         $eventTypeParts = \explode('\\', $eventFqn);
         $eventName = \end($eventTypeParts);
-        $applyMethod = 'on' . $eventName;
+        $applyMethod = 'on'.$eventName;
 
         return $applyMethod;
     }

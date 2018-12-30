@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Specification;
 
 /**
@@ -12,36 +14,36 @@ interface Specification
     /**
      * Adds a "and" clause to a specification.
      *
-     * @param \ddd\Specification\Specification $specification The specification to add.
+     * @param \ddd\Specification\Specification $specification the specification to add
      *
-     * @return \ddd\Specification\AndSpecification The new specification.
+     * @return \ddd\Specification\AndSpecification the new specification
      */
     public function andX(Specification $specification);
 
     /**
      * Adds a "or" clause to a specification.
      *
-     * @param \ddd\Specification\Specification $specification The specification to add.
+     * @param \ddd\Specification\Specification $specification the specification to add
      *
-     * @return \ddd\Specification\OrSpecification The new specification.
+     * @return \ddd\Specification\OrSpecification the new specification
      */
     public function orX(Specification $specification);
 
     /**
      * Adds a "not" clause to a specification.
      *
-     * @param \ddd\Specification\Specification $specification The specification to add.
+     * @param \ddd\Specification\Specification $specification the specification to add
      *
-     * @return \ddd\Specification\NotSpecification The new specification.
+     * @return \ddd\Specification\NotSpecification the new specification
      */
     public function notX();
 
     /**
      * Verifies if a specification is satisfied by an object.
      *
-     * @param mixed $value The value to test the specification with.
+     * @param mixed $value the value to test the specification with
      *
-     * @return bool true if the specification is satisfied, false otherwise.
+     * @return bool true if the specification is satisfied, false otherwise
      */
     public function isSatisfiedBy($value): bool;
 }

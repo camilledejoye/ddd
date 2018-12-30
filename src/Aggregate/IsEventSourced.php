@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Aggregate;
 
 use ddd\Event\AggregateChanges;
@@ -11,11 +13,9 @@ use ddd\Event\AggregateHistory;
 interface IsEventSourced
 {
     /**
-     * Reconstitutes an object from it's history
+     * Reconstitutes an object from it's history.
      *
      * @param AggregateHistory $history
-     *
-     * @return void
      */
     public static function reconstituteFrom(AggregateHistory $history);
 

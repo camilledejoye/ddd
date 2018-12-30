@@ -1,8 +1,8 @@
 <?php
 
-namespace ddd\Event\Exception;
+declare(strict_types=1);
 
-use ddd\Event\Exception\WrongEventTypeWasProvidedException;
+namespace ddd\Event\Exception;
 
 abstract class AggregateHistoryException
 {

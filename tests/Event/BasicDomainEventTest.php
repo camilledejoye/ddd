@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Test\Event;
 
 use DateTimeImmutable;
 use ReflectionClass;
-use ddd\Event\BasicDomainEvent;
 use PHPUnit\Framework\TestCase;
 use ddd\Identity\IdentifiesAnAggregate;
 

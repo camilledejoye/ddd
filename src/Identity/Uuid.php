@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Identity;
 
 use Ramsey\Uuid\Uuid as BaseUuid;

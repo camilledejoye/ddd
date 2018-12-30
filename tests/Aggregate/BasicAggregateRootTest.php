@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ddd\Test\Aggregate;
 
 use ddd\Aggregate\AggregateRoot as AggregateRootInterface;
-use ddd\Aggregate\BasicAggregateRoot;
 use PHPUnit\Framework\TestCase;
 use ddd\Event\AggregateHistory;
 use ddd\Event\DomainEvent;
@@ -84,7 +85,7 @@ class BasicAggregateRootTest extends TestCase
             'a totally different kind of object' => [new \StdClass()],
             'another king of aggregate' => [$this->createMock(AggregateRootInterface::class)],
             'the same kind of aggregate with a different identity' => [
-                AggregateRoot::create($this->createAnAggregateId())
+                AggregateRoot::create($this->createAnAggregateId()),
             ],
         ];
     }

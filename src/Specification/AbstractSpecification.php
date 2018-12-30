@@ -1,10 +1,8 @@
 <?php
 
-namespace ddd\Specification;
+declare(strict_types=1);
 
-use ddd\Specification\AndSpecification;
-use ddd\Specification\OrSpecification;
-use ddd\Specification\NotSpecification;
+namespace ddd\Specification;
 
 /**
  * A base for all Specification objects.
