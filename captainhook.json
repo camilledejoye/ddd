@@ -3,30 +3,36 @@
         "enabled": true,
         "actions": [
             {
-                "action": "\\SebastianFeldmann\\CaptainHook\\Hook\\Message\\Action\\Beams",
-                "options": []
+                "action": "\\CaptainHook\\App\\Hook\\Message\\Action\\Beams",
+                "options": {
+                    "subjectLength": 50,
+                    "bodyLineLength": 72
+                }
             }
         ]
+    },
+    "pre-push": {
+        "enabled": false,
+        "actions": []
     },
     "pre-commit": {
         "enabled": true,
         "actions": [
             {
-                "action": "\\SebastianFeldmann\\CaptainHook\\Hook\\Composer\\Action\\CheckLockFile",
+                "action": "\\CaptainHook\\App\\Hook\\Composer\\Action\\CheckLockFile",
                 "options": []
             },
             {
-                "action": "vendor/bin/parallel-lint --colors --exclude app --exclude vendor --exclude var --exclude node_modules ."
+                "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting",
+                "options": []
             },
             {
-                "action": "phpunit --colors=always"
-            },
-            {
-                "action": "phpcs --colors --standard=PSR2 --ignore=vendor/,var/,.git/ ."
+                "action": "composer check",
+                "options": []
             }
         ]
     },
-    "pre-push": {
+    "prepare-commit-msg": {
         "enabled": false,
         "actions": []
     }

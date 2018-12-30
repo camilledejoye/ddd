@@ -21,13 +21,20 @@
         }
     ],
     "require-dev": {
-        "jakub-onderka/php-parallel-lint": "^1.0",
-        "jakub-onderka/php-console-highlighter": "^0.4.0",
-        "squizlabs/php_codesniffer": "^3.3",
-        "phpunit/phpunit": "^6.1",
-        "sebastianfeldmann/captainhook": "^2.1"
+        "captainhook/captainhook": "^3.1",
+        "friendsofphp/php-cs-fixer": "^2.13",
+        "phpunit/phpunit": "^7.5",
+        "phpunit/php-invoker": "^2.0"
     },
     "scripts": {
-        "post-install-cmd": "\\SebastianFeldmann\\CaptainHook\\Composer\\Cmd::install"
+        "cs": "vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run",
+        "csd": "vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --diff --diff-format=udiff --ansi --dry-run",
+        "cs-fix": "vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v",
+        "test": "vendor/bin/phpunit --colors=always",
+        "check": [
+            "@cs",
+            "@test"
+        ],
+        "post-install-cmd": "vendor/bin/captainhook install"
     }
 }
