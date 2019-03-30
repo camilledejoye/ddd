@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ddd\Aggregate;
 
 use ddd\Event\AggregateChanges;
+use ddd\Event\AggregateEventStream;
 use ddd\Event\AggregateHistory;
 use ddd\Event\DomainEvent;
 use ddd\Identity\IdentifiesAnAggregate;
@@ -28,11 +29,22 @@ trait BasicAggregateRoot
     {
         $aggregate = new static($history->aggregateId());
 
-        foreach ($history as $event) {
-            $aggregate->apply($event);
-        }
+        $aggregate->replay($history);
+        $aggregate->clearPendingEvents();
 
         return $aggregate;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function replay(AggregateEventStream $events)
+    {
+        foreach ($events as $event) {
+            $this->recordThat($event);
+        }
+
+        return $this;
     }
 
     /**

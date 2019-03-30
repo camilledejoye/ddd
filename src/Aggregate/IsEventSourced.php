@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ddd\Aggregate;
 
 use ddd\Event\AggregateChanges;
+use ddd\Event\AggregateEventStream;
 use ddd\Event\AggregateHistory;
 
 /**
@@ -16,8 +17,19 @@ interface IsEventSourced
      * Reconstitutes an object from it's history.
      *
      * @param AggregateHistory $history
+     *
+     * @return IsEventSourced
      */
     public static function reconstituteFrom(AggregateHistory $history);
+
+    /**
+     * Replays a list of events onto an aggregate.
+     *
+     * @param AggregateChanges $events
+     *
+     * @return static
+     */
+    public function replay(AggregateEventStream $events);
 
     /**
      * Gets the pending events.
